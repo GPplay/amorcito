@@ -138,3 +138,20 @@ footer {
     color: var(--color-secundario);
     opacity: 0.8;
 }
+
+/* Animación para el corazón */
+@keyframes latido {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.corazon-animado {
+    color: var(--color-acento); /* Color del corazón */
+    font-size: 1.2em;
+    animation: latido 1s infinite;
+    display: inline-block;
+}
