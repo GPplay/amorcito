@@ -3,65 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amorcito</title>
-    <link rel="stylesheet" href="diseño.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <title>Para Mi Amorcito ❤️ | Nuestra Historia</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS para el Mapa Interactivo -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Estilos de la página -->
+    <link rel="stylesheet" href="estilos.css">
     <link rel="icon" type="image/png" href="fotos/icon.png">
 </head>
 <body>
 
+    <!-- Canvas para lluvia de corazones y pétalos flotantes -->
+    <canvas id="canvas-corazones"></canvas>
+
+    <!-- Botones flotantes de interacción -->
+    <div class="controles-flotantes">
+        <button id="btn-musica" class="btn-flotante" title="Música romántica" aria-label="Música">🎵</button>
+        <button id="btn-toggle-corazones" class="btn-flotante activo" title="Lluvia de corazones" aria-label="Corazones">✨</button>
+    </div>
+    
+    <!-- Elemento de audio para música de fondo (opcional/personalizable) -->
+    <audio id="musica-fondo" loop preload="none"></audio>
+
+    <!-- CABECERA PRINCIPAL -->
     <header>
+        <div class="insignia-amor">
+            <span class="corazon-animado">💖</span>
+            Nuestra Historia de Amor
+            <span class="corazon-animado">💖</span>
+        </div>
         <h1>Para mi amorcito hermoso</h1>
-        <p>Un pequeño rincón en internet para recordar nuestra historia...</p>
+        <p class="subtitulo">Un pequeño rincón en internet para recordar nuestra historia y soñar con todas las aventuras que nos quedan por vivir...</p>
     </header>
 
     <main>
-        <section class="foto-principal">
-            <img src="fotos/amorcito 10.png" alt="Una foto de nosotros dos">
+        <!-- FOTO POLAROID DESTACADA -->
+        <section class="seccion-destacada">
+            <div class="polaroid-principal" title="Haz clic para ver en grande">
+                <img src="fotos/amorcito 10.png" alt="Nosotros dos juntos">
+                <div class="polaroid-caption">Tú y yo, por siempre ❤️</div>
+            </div>
         </section>
 
-        <section class="mensaje-principal">
-            <p>Eres la mujer que yo siempre quise tener a mi lado y yo quiero hacerte feliz. 
-                Porque no hay nada que me guste mas que verte contenta. Me encanta que siempre me animes a salir de mi zona de confort para poder hacer cosas nuevas. 
-                Eres una muy buena influencia en mi vida mi amor. No se han inventado las palabras para que sepas cuanto te amo. Eres la mejor relacion y espero poder seguir enamorandote y haciendote feliz mucho tiempo mas. 
-                Me encanta poder cuidar de ti y tu de mi amor y te amo con todas las ganas y fuerzas imaginables, siempre te lo he dicho tu mereces la felicidad y mereces ser feliz y para ti nunca va a haber nada mas que buenos deseos y pensamientos para ti. 
-                Eres la mejor mejor que cualquier persona puede tener de pareja.</p>
+        <!-- CARTA DE AMOR -->
+        <section class="seccion-carta">
+            <div class="tarjeta-carta">
+                <h2>Una carta para ti</h2>
+                <p>
+                    Eres la mujer que siempre soñé tener a mi lado y cada día mi mayor anhelo es hacerte inmensamente feliz, porque no hay nada en el mundo que me llene más el alma que verte sonreír. Me encanta que siempre me motives a salir de mi zona de confort y a descubrir cosas nuevas juntos; eres una bendición y una maravillosa influencia en mi vida.
+                    <br><br>
+                    No existen palabras suficientes para explicar cuánto te amo. Esta es la relación más hermosa que he tenido y deseo seguir enamorándote y haciéndote feliz cada día de nuestras vidas. Me encanta cuidar de ti y sentir cómo tú cuidas de mí; te amo con todas las fuerzas imaginables. Siempre te lo he dicho: mereces la felicidad entera y para ti nunca habrá nada más que buenos deseos, amor y ternura. ¡Eres la persona más maravillosa de mi vida!
+                </p>
+            </div>
         </section>
 
-        <section class="galeria">
-            <div class="foto-item">
-                <img src="fotos/amorcito 1.jpg" alt="Descripción de la foto 1">
+        <!-- CONTADOR DE AMOR -->
+        <section class="seccion-contador">
+            <h2>Tiempo Compartiendo Nuestro Amor <span class="corazon-animado">⏳💕</span></h2>
+            <p class="desc-contador">Días de complicidad, horas de felicidad y segundos amándote...</p>
+            <div class="rejilla-contador">
+                <div class="caja-tiempo">
+                    <span class="numero" id="contador-dias">0</span>
+                    <span class="etiqueta">Días</span>
+                </div>
+                <div class="caja-tiempo">
+                    <span class="numero" id="contador-horas">00</span>
+                    <span class="etiqueta">Horas</span>
+                </div>
+                <div class="caja-tiempo">
+                    <span class="numero" id="contador-minutos">00</span>
+                    <span class="etiqueta">Minutos</span>
+                </div>
+                <div class="caja-tiempo">
+                    <span class="numero" id="contador-segundos">00</span>
+                    <span class="etiqueta">Segundos</span>
+                </div>
             </div>
-            <div class="foto-item">
-                <img src="fotos/amorcito 2.jpg" alt="Descripción de la foto 2">
-            </div>
-            <div class="foto-item">
-                <img src="fotos/amorcito 3.jpg" alt="Descripción de la foto 3">
-            </div>
-            <div class="foto-item">
-                <img src="fotos/amorcito 4.jpg" alt="Descripción de la foto 4">
-            </div>
-            <div class="foto-item">
-                <img src="fotos/amorcito 5.jpg" alt="Descripción de la foto 5">
-            </div>
-            <div class="foto-item">
-                <img src="fotos/amorcito 6.jpg" alt="Descripción de la foto 6">
-            </div>
-            <div class="foto-item">
-                <img src="fotos/amorcito 7.jpg" alt="Descripción de la foto 7">
-            </div>
-            <div class="foto-item">
-                <img src="fotos/amorcito 8.jpg" alt="Descripción de la foto 7">
+            <button id="btn-cambiar-fecha" class="btn-cambiar-fecha">✨ Ajustar nuestra fecha de aniversario</button>
+        </section>
+
+        <!-- MAPA INTERACTIVO DE COLOMBIA -->
+        <section class="seccion-mapa">
+            <div class="cabecera-mapa">
+                <h2>Nuestras Aventuras por Colombia 🇨🇴✈️</h2>
+                <p>Explora cada uno de los 32 departamentos y descubre los lugares donde hemos dejado nuestra huella de amor.</p>
             </div>
 
+            <div class="estadisticas-viaje">
+                <div class="viaje-info-fila">
+                    <span id="texto-progreso-viajes"><strong>2</strong> de <strong>33</strong> departamentos explorados (6%) 💕</span>
+                    <div class="viaje-etiquetas">
+                        <span class="chip-visita visitado">❤️ ¡Ciudad visitada!</span>
+                        <span class="chip-visita pendiente">✈️ Próximo destino</span>
+                    </div>
+                </div>
+                <div class="barra-progreso-contenedor">
+                    <div class="barra-progreso-relleno" id="progreso-viajes"></div>
+                </div>
+            </div>
+
+            <div class="contenedor-mapa-relativo">
+                <div id="mapa-colombia"></div>
+            </div>
+        </section>
+
+        <!-- GALERÍA DE FOTOS COMPLETA -->
+        <section class="seccion-galeria">
+            <div class="cabecera-galeria">
+                <h2>Nuestros Recuerdos Inolvidables <span class="corazon-animado">📸💖</span></h2>
+                <p>Cada foto guarda una sonrisa, una aventura y un pedacito de nuestro amor.</p>
+            </div>
+
+            <div class="galeria-mosaico">
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amorcito 1.jpg" alt="Nuestra complicidad" loading="lazy">
+                        <div class="overlay"><span>Nuestra complicidad ✨</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Nuestra complicidad ✨</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amorcito 2.jpg" alt="Tu hermosa sonrisa" loading="lazy">
+                        <div class="overlay"><span>Tu hermosa sonrisa 💖</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Tu hermosa sonrisa 💖</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amorcito 3.jpg" alt="Momentos mágicos" loading="lazy">
+                        <div class="overlay"><span>Momentos mágicos 🌹</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Momentos mágicos 🌹</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amorcito 4.jpg" alt="Juntos en cada aventura" loading="lazy">
+                        <div class="overlay"><span>Juntos en cada aventura ✈️</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Juntos en cada aventura ✈️</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amorcito 5.jpg" alt="Mi lugar favorito en el mundo" loading="lazy">
+                        <div class="overlay"><span>Mi lugar favorito 🥰</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Mi lugar favorito 🥰</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amorcito 6.jpg" alt="Risas y recuerdos" loading="lazy">
+                        <div class="overlay"><span>Risas y recuerdos inolvidables 📸</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Risas y recuerdos 📸</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amorcito 7.jpg" alt="El amor de mi vida" loading="lazy">
+                        <div class="overlay"><span>El amor de mi vida 💕</span></div>
+                    </div>
+                    <div class="foto-pie"><p>El amor de mi vida 💕</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amorcito 8.jpg" alt="Contigo todo es más bonito" loading="lazy">
+                        <div class="overlay"><span>Contigo todo es más bonito 🌸</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Todo es más bonito 🌸</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amorcito 9.jpg" alt="Miradas que lo dicen todo" loading="lazy">
+                        <div class="overlay"><span>Miradas que lo dicen todo ✨</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Miradas que lo dicen todo ✨</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amorcito 10.jpeg" alt="Paseos y momentos únicos" loading="lazy">
+                        <div class="overlay"><span>Paseos y momentos únicos 🌿</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Paseos inolvidables 🌿</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amorcito 11.jpeg" alt="Abrazos que curan el alma" loading="lazy">
+                        <div class="overlay"><span>Abrazos que curan el alma 🤗</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Abrazos que curan 🤗</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amoricto 12.jpeg" alt="Siempre juntos de la mano" loading="lazy">
+                        <div class="overlay"><span>Siempre de la mano 💍</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Siempre de la mano 💍</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amorcito 13.jpeg" alt="Escribiendo nuestra historia" loading="lazy">
+                        <div class="overlay"><span>Escribiendo nuestra historia 📖</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Nuestra historia 📖</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amorcito 14.jpeg" alt="Gracias por hacerme tan feliz" loading="lazy">
+                        <div class="overlay"><span>Haciéndome tan feliz ❤️</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Haciéndome tan feliz ❤️</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/amorcito 15.jpeg" alt="Mi mayor bendición" loading="lazy">
+                        <div class="overlay"><span>Mi mayor bendición 🌟</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Mi bendición eres tú 🌟</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/WhatsApp Image 2026-08-29 at 3.50.45 PM.jpeg" alt="Días soleados juntos" loading="lazy">
+                        <div class="overlay"><span>Días soleados y amor ☀️</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Días soleados de amor ☀️</p></div>
+                </div>
+
+                <div class="tarjeta-foto" title="Haz clic para ver en grande">
+                    <div class="foto-wrapper">
+                        <img src="fotos/WhatsApp Image 2026-08-29 at 3.50.46 PM.jpeg" alt="Para siempre tú y yo" loading="lazy">
+                        <div class="overlay"><span>Para siempre tú y yo 💑</span></div>
+                    </div>
+                    <div class="foto-pie"><p>Para siempre tú y yo 💑</p></div>
+                </div>
+            </div>
         </section>
     </main>
 
+    <!-- MODAL LIGHTBOX PARA VER FOTOS EN GRANDE -->
+    <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true">
+        <button id="lightbox-cerrar" class="lightbox-btn lightbox-cerrar" title="Cerrar">&times;</button>
+        <button id="lightbox-prev" class="lightbox-btn lightbox-prev" title="Foto anterior">&#10094;</button>
+        <div class="lightbox-contenido">
+            <img id="lightbox-img" class="lightbox-img" src="" alt="Recuerdo en grande">
+            <div id="lightbox-caption" class="lightbox-caption"></div>
+        </div>
+        <button id="lightbox-next" class="lightbox-btn lightbox-next" title="Siguiente foto">&#10095;</button>
+    </div>
+
+    <!-- FOOTER -->
     <footer>
-        <p>Con amor, tu principe azul!</p>
+        <p class="firma">Con todo mi amor, ¡tu príncipe azul! <span class="corazon-animado">❤️</span></p>
+        <p class="dedicatoria">Hecho especialmente para la dueña de mi corazón • Siempre juntos</p>
     </footer>
 
+    <!-- Leaflet JS y Lógica de la aplicación -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="colombia-datos.js"></script>
+    <script src="app.js"></script>
 </body>
-
 </html>
-

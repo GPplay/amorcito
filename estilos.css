@@ -1,0 +1,792 @@
+/* ESTILOS ROMANTICOS PARA AMORCITO */
+:root {
+    --color-principal: #ffb6c1;
+    --color-secundario: #4a3437;
+    --color-acento: #e55c7b;
+    --color-acento-hover: #c43356;
+    --color-fondo-1: #fdf2f4;
+    --color-fondo-2: #fae1e7;
+    --color-tarjeta: rgba(255, 255, 255, 0.88);
+    --color-borde: rgba(229, 92, 123, 0.25);
+    --sombra-suave: 0 10px 30px rgba(229, 92, 123, 0.12);
+    --sombra-hover: 0 18px 40px rgba(229, 92, 123, 0.22);
+    --fuente-titulo: 'Dancing Script', cursive;
+    --fuente-elegante: 'Playfair Display', serif;
+    --fuente-cuerpo: 'Poppins', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--fuente-cuerpo);
+    background: linear-gradient(135deg, var(--color-fondo-1) 0%, #f9d8e1 50%, var(--color-fondo-2) 100%);
+    background-attachment: fixed;
+    color: var(--color-secundario);
+    min-height: 100vh;
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* CANVAS DE PARTICULAS / CORAZONES */
+#canvas-corazones {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* BOTONES FLOTANTES */
+.controles-flotantes {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
+}
+
+.btn-flotante {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid var(--color-acento);
+    color: var(--color-acento);
+    box-shadow: 0 6px 18px rgba(229, 92, 123, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    outline: none;
+}
+
+.btn-flotante:hover {
+    transform: scale(1.12);
+    background: var(--color-acento);
+    color: #ffffff;
+}
+
+.btn-flotante.activo {
+    background: var(--color-acento);
+    color: #ffffff;
+    animation: giroSuave 8s linear infinite;
+}
+
+@keyframes giroSuave {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* HEADER */
+header {
+    position: relative;
+    z-index: 2;
+    padding: 70px 20px 30px 20px;
+    text-align: center;
+}
+
+.insignia-amor {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px 22px;
+    border-radius: 50px;
+    border: 1px solid var(--color-borde);
+    box-shadow: 0 4px 15px rgba(229, 92, 123, 0.15);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-acento);
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+header h1 {
+    font-family: var(--fuente-titulo);
+    font-size: clamp(2.8rem, 8vw, 5.2rem);
+    color: var(--color-acento);
+    text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.08);
+    margin-bottom: 12px;
+    line-height: 1.15;
+}
+
+header p.subtitulo {
+    font-size: clamp(1.05rem, 3vw, 1.4rem);
+    color: #6b4d53;
+    max-width: 650px;
+    margin: 0 auto;
+    font-family: var(--fuente-titulo);
+}
+
+main {
+    position: relative;
+    z-index: 2;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 10px 20px 60px 20px;
+}
+
+/* SECCION FOTO PRINCIPAL POLAROID */
+.seccion-destacada {
+    display: flex;
+    justify-content: center;
+    margin: 30px auto 45px auto;
+}
+
+.polaroid-principal {
+    background: #ffffff;
+    padding: 18px 18px 40px 18px;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15), 0 3px 10px rgba(229, 92, 123, 0.2);
+    transform: rotate(-2.5deg);
+    transition: all 0.4s ease;
+    max-width: 380px;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+}
+
+.polaroid-principal:hover {
+    transform: rotate(0deg) scale(1.03);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(229, 92, 123, 0.3);
+}
+
+.polaroid-principal img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+}
+
+.polaroid-caption {
+    font-family: var(--fuente-titulo);
+    font-size: 1.6rem;
+    color: var(--color-acento);
+    text-align: center;
+    margin-top: 16px;
+}
+
+/* CARTA DE AMOR */
+.seccion-carta {
+    margin: 40px auto;
+    max-width: 860px;
+}
+
+.tarjeta-carta {
+    background: var(--color-tarjeta);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--color-borde);
+    border-radius: 24px;
+    padding: 40px 35px;
+    box-shadow: var(--sombra-suave);
+    position: relative;
+    text-align: center;
+}
+
+.tarjeta-carta::before {
+    content: "💌";
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.2rem;
+    background: #ffffff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(229, 92, 123, 0.25);
+}
+
+.tarjeta-carta h2 {
+    font-family: var(--fuente-titulo);
+    font-size: 2.3rem;
+    color: var(--color-acento);
+    margin-bottom: 20px;
+}
+
+.tarjeta-carta p {
+    font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+    line-height: 1.8;
+    color: #4b3d3d;
+    font-family: var(--fuente-titulo);
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+/* SECCION CONTADOR DE TIEMPO */
+.seccion-contador {
+    margin: 50px auto;
+    max-width: 900px;
+    text-align: center;
+}
+
+.seccion-contador h2 {
+    font-family: var(--fuente-titulo);
+    font-size: 2.4rem;
+    color: var(--color-acento);
+    margin-bottom: 8px;
+}
+
+.seccion-contador p.desc-contador {
+    font-size: 1.05rem;
+    color: #6b4d53;
+    margin-bottom: 25px;
+}
+
+.rejilla-contador {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 0 auto;
+}
+
+.caja-tiempo {
+    background: var(--color-tarjeta);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--color-borde);
+    border-radius: 18px;
+    padding: 20px 10px;
+    box-shadow: var(--sombra-suave);
+    transition: transform 0.3s ease;
+}
+
+.caja-tiempo:hover {
+    transform: translateY(-5px);
+}
+
+.caja-tiempo .numero {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--color-acento);
+    display: block;
+    line-height: 1.1;
+}
+
+.caja-tiempo .etiqueta {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #7a5c61;
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+.btn-cambiar-fecha {
+    margin-top: 15px;
+    background: transparent;
+    border: none;
+    color: #8c626a;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.btn-cambiar-fecha:hover {
+    color: var(--color-acento);
+}
+
+/* SECCION MAPA DE COLOMBIA */
+.seccion-mapa {
+    margin: 70px auto 50px auto;
+    max-width: 1100px;
+}
+
+.cabecera-mapa {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.cabecera-mapa h2 {
+    font-family: var(--fuente-titulo);
+    font-size: clamp(2.3rem, 5vw, 3.2rem);
+    color: var(--color-acento);
+    margin-bottom: 6px;
+}
+
+.cabecera-mapa p {
+    font-size: 1.1rem;
+    color: #6b4d53;
+}
+
+/* BARRA DE VIAJES */
+.estadisticas-viaje {
+    background: var(--color-tarjeta);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--color-borde);
+    border-radius: 20px;
+    padding: 18px 25px;
+    box-shadow: var(--sombra-suave);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.viaje-info-fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.viaje-etiquetas {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.chip-visita {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.chip-visita.visitado {
+    background: #ffe3e8;
+    color: var(--color-acento);
+    border: 1px solid var(--color-acento);
+}
+
+.chip-visita.pendiente {
+    background: #f5f5f5;
+    color: #666666;
+    border: 1px solid #dddddd;
+}
+
+.barra-progreso-contenedor {
+    width: 100%;
+    height: 12px;
+    background: #ebd2d7;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.barra-progreso-relleno {
+    height: 100%;
+    background: linear-gradient(90deg, #ff8fa3, var(--color-acento));
+    border-radius: 10px;
+    width: 6%;
+    transition: width 1s ease-in-out;
+}
+
+/* CONTENEDOR DEL MAPA LEAFLET */
+.contenedor-mapa-relativo {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--sombra-suave);
+    border: 3px solid #ffffff;
+}
+
+#mapa-colombia {
+    width: 100%;
+    height: 600px;
+    background-color: #fdf5f6;
+    z-index: 10;
+}
+
+/* ESTILOS CUSTOM PARA LEAFLET */
+.leaflet-container {
+    font-family: var(--fuente-cuerpo) !important;
+}
+
+.popup-romantico .leaflet-popup-content-wrapper {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 10px 25px rgba(229, 92, 123, 0.25) !important;
+    border: 1px solid var(--color-borde) !important;
+    padding: 8px !important;
+}
+
+.popup-romantico .leaflet-popup-tip {
+    background: #ffffff !important;
+}
+
+.contenido-popup-depto {
+    text-align: center;
+    padding: 10px 5px;
+}
+
+.contenido-popup-depto h4 {
+    font-size: 1.15rem;
+    color: var(--color-acento);
+    margin-bottom: 6px;
+    font-family: var(--fuente-cuerpo);
+    font-weight: 700;
+}
+
+.contenido-popup-depto .badge-status {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.contenido-popup-depto .badge-status.visitado {
+    background: #e55c7b;
+    color: #ffffff;
+}
+
+.contenido-popup-depto .badge-status.pendiente {
+    background: #f3f3f3;
+    color: #666666;
+}
+
+.contenido-popup-depto p {
+    font-size: 0.92rem;
+    color: #4b3d3d;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* MARCADOR PIN DE CORAZON PULSANTE */
+.pin-corazon-wrapper {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pin-corazon-icono {
+    font-size: 1.6rem;
+    animation: latido 1.2s infinite ease-in-out;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+    z-index: 2;
+}
+
+.pin-pulso {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: rgba(229, 92, 123, 0.4);
+    border-radius: 50%;
+    animation: ondaExpansiva 1.6s infinite ease-out;
+    z-index: 1;
+}
+
+@keyframes ondaExpansiva {
+    0% { transform: scale(0.6); opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* SECCION GALERIA */
+.seccion-galeria {
+    margin: 70px auto 40px auto;
+}
+
+.cabecera-galeria {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.cabecera-galeria h2 {
+    font-family: var(--fuente-titulo);
+    font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+    color: var(--color-acento);
+    margin-bottom: 8px;
+}
+
+.cabecera-galeria p {
+    font-size: 1.15rem;
+    color: #6b4d53;
+}
+
+.galeria-mosaico {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 10px;
+}
+
+.tarjeta-foto {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 12px 12px 20px 12px;
+    box-shadow: var(--sombra-suave);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.tarjeta-foto:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--sombra-hover);
+}
+
+.foto-wrapper {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+    height: 320px;
+}
+
+.foto-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.tarjeta-foto:hover .foto-wrapper img {
+    transform: scale(1.08);
+    filter: brightness(0.9);
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 15px;
+    text-align: center;
+}
+
+.tarjeta-foto:hover .overlay {
+    opacity: 1;
+}
+
+.overlay span {
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    background: rgba(229, 92, 123, 0.85);
+    backdrop-filter: blur(5px);
+    padding: 8px 16px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.foto-pie {
+    padding-top: 14px;
+    text-align: center;
+}
+
+.foto-pie p {
+    font-family: var(--fuente-titulo);
+    font-size: 1.35rem;
+    color: var(--color-secundario);
+    transition: color 0.3s;
+}
+
+.tarjeta-foto:hover .foto-pie p {
+    color: var(--color-acento);
+}
+
+/* MODAL LIGHTBOX */
+.lightbox-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 10, 15, 0.92);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: 20px;
+}
+
+.lightbox-modal.activo {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox-contenido {
+    max-width: 90vw;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.lightbox-img {
+    max-width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.lightbox-caption {
+    margin-top: 14px;
+    color: #ffffff;
+    font-family: var(--fuente-titulo);
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.lightbox-btn {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #ffffff;
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+    user-select: none;
+}
+
+.lightbox-btn:hover {
+    background: rgba(229, 92, 123, 0.8);
+}
+
+.lightbox-cerrar {
+    top: 20px;
+    right: 25px;
+    font-size: 1.6rem;
+}
+
+.lightbox-prev {
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lightbox-next {
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* FOOTER */
+footer {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 60px 20px 80px 20px;
+    color: var(--color-secundario);
+}
+
+footer p.firma {
+    font-family: var(--fuente-titulo);
+    font-size: 2.2rem;
+    color: var(--color-acento);
+    margin-bottom: 8px;
+}
+
+footer p.dedicatoria {
+    font-size: 0.95rem;
+    color: #8c6a71;
+}
+
+/* ANIMACION CORAZON */
+@keyframes latido {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+}
+
+.corazon-animado {
+    color: var(--color-acento);
+    font-size: 1.3em;
+    animation: latido 1.2s infinite ease-in-out;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    header {
+        padding: 50px 15px 20px 15px;
+    }
+
+    .polaroid-principal {
+        max-width: 320px;
+        padding: 14px 14px 30px 14px;
+    }
+
+    .polaroid-principal img {
+        height: 360px;
+    }
+
+    .tarjeta-carta {
+        padding: 30px 20px;
+    }
+
+    .rejilla-contador {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    #mapa-colombia {
+        height: 480px;
+    }
+
+    .galeria-mosaico {
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: 16px;
+    }
+
+    .foto-wrapper {
+        height: 280px;
+    }
+
+    .lightbox-prev {
+        left: 10px;
+    }
+
+    .lightbox-next {
+        right: 10px;
+    }
+}
