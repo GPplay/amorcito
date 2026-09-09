@@ -195,7 +195,14 @@ function iniciarContadorAmor() {
     const elSegundos = document.getElementById('contador-segundos');
     const btnFecha = document.getElementById('btn-cambiar-fecha');
 
-    let fechaInicioStr = localStorage.getItem('amorcito_fecha_aniversario') || '2024-01-01T00:00:00';
+    let fechaInicioStr = localStorage.getItem('amorcito_fecha_aniversario');
+    // Si no está definida o si tenía la fecha provisional previa '2024-01-01', fijar al 9 de marzo de 2025
+    if (!fechaInicioStr || fechaInicioStr.startsWith('2024-01-01')) {
+        fechaInicioStr = '2025-03-09T00:00:00';
+        try {
+            localStorage.setItem('amorcito_fecha_aniversario', fechaInicioStr);
+        } catch (e) {}
+    }
 
     function actualizar() {
         const inicio = new Date(fechaInicioStr).getTime();
